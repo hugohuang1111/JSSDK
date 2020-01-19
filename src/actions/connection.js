@@ -3,7 +3,7 @@ import * as types from '../mutations';
 import {ChainStore} from "bcxjs-cores";
 import { ChainConfig } from 'bcxjs-ws';
 import iDB from '../services/api/wallet/idb-instance';
-
+import fIndexedDB from "fake-indexeddb";
 let _new_node_connecting=false;//if here is new incoming node connection.
 /**
  * Initializes connection to WS
@@ -181,7 +181,8 @@ export const IDB_INIT=(store)=>{
   var db;
   try {
       //install indexeddbshim 2.2.1 other version may cause problems
-      db = iDB.init_instance(window.openDatabase ? (shimIndexedDB||indexedDB) : indexedDB).init_promise;
+      // db = iDB.init_instance(window.openDatabase ? (shimIndexedDB||indexedDB) : indexedDB).init_promise;
+      db = iDB.init_instance(fIndexedDB).init_promise;
   } catch (err) {
       console.log("db init error:", err);
   }
